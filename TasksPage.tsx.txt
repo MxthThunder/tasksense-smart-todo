@@ -1,0 +1,85 @@
+import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Task, TaskFilter } from '../types/task';
+import { loadTasks, completeTask, deleteTask, filterTasks, searchTasks } from '../utils/taskUtils';
+import TaskList from '../components/TaskList';
+import FilterBar from '../components/FilterBar';
+import SearchBar from '../components/SearchBar';
+import './TasksPage.css';
+
+function TasksPage() {
+  const navigate = useNavigate();
+  const [tasks, setTasks] = useState<Task[]>(loadTasks());
+  const [filter, setFilter] = useState<TaskFilter>('All');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const visibleTasks = useMemo(() => {
+    let result = searchTasks(tasks, searchTerm);
+    result = filterTasks(result, filter);
+    return result.sort((a, b) => b.createdAt - a.createdAt);
+  }, [tasks, searchTerm, filter]);
+
+  const handleComplete = (id: number) => {
+    const updated = completeTask(tasks, id);
+    setTasks([...updated]);
+  };
+
+  const handleDelete = (id: number) => {
+    if (window.confirm('Are you sure you want to delete this task?')) {
+      const updated = deleteTask(tasks, id);
+      setTasks([...updated]);
+    }
+  };
+
+  const handleEdit = (task: Task) => {
+    navigate('/edit', { state: { task } });
+  };
+
+  return (
+    <div className="page-container">
+      <div className="page-header-large">
+        <h1 className="page-title-large">
+          <span className="icon-emoji">📊</span>
+          MY TASKS
+          <span className="icon-emoji">🎯</span>
+        </h1>
+        <p className="page-subtitle-large">💼 Manage and track all your tasks efficiently 🚀</p>
+      </div>
+
+      <div className="controls-section">
+        <div className="control-card">
+          <h3 className="control-title">🔍 SEARCH</h3>
+          <SearchBar value={searchTerm} onChange={setSearchTerm} />
+        </div>
+        <div className="control-card">
+          <h3 className="control-title">📂 FILTER</h3>
+          <FilterBar current={filter} onChange={setFilter} />
+        </div>
+      </div>
+
+      <div className="tasks-section">
+        <div className="section-header">
+          <h2 className="section-title">
+            ▼ YOUR TASKS ({visibleTasks.length}) ▼
+          </h2>
+        </div>
+        <TaskList
+          tasks={visibleTasks}
+          onEditTask={handleEdit}
+          onDeleteTask={handleDelete}
+          onCompleteTask={handleComplete}
+        />
+      </div>
+
+      <button 
+        className="fab"
+        onClick={() => navigate('/')}
+        title="Add New Task"
+      >
+        ➕
+      </button>
+    </div>
+  );
+}
+
+export default TasksPage;

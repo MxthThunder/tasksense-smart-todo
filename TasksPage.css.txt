@@ -1,0 +1,130 @@
+.controls-section {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-2xl);
+  animation: fadeInUp 0.4s ease 0.2s backwards;
+}
+
+.control-card {
+  background: var(--bg-dark);
+  border: 3px solid var(--neon-cyan);
+  padding: var(--space-xl);
+  box-shadow: 
+    0 0 20px var(--neon-cyan),
+    inset 0 0 15px rgba(0, 245, 255, 0.08);
+}
+
+.control-title {
+  margin: 0 0 var(--space-md);
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-gold);
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-shadow: 
+    2px 2px 0px rgba(0, 0, 0, 0.8),
+    0 0 10px var(--text-gold);
+}
+
+.tasks-section {
+  animation: fadeInUp 0.4s ease 0.3s backwards;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  border: 3px solid var(--neon-pink);
+  background: var(--bg-dark);
+  box-shadow: 
+    0 0 20px var(--neon-pink),
+    inset 0 0 15px rgba(255, 0, 110, 0.1);
+}
+
+.section-title {
+  margin: 0;
+  font-family: "Press Start 2P", monospace;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--neon-pink);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 
+    2px 2px 0px rgba(0, 0, 0, 0.8),
+    0 0 15px var(--neon-pink);
+  animation: pulse 3s infinite;
+}
+
+.fab {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--neon-yellow);
+  color: var(--bg-black);
+  border: 5px solid var(--neon-yellow);
+  box-shadow: 
+    0 0 40px var(--neon-yellow),
+    0 10px 40px rgba(0, 0, 0, 0.6);
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: pulse 4s infinite;
+  z-index: 1000;
+}
+
+.fab:hover {
+  transform: scale(1.2) rotate(90deg);
+  box-shadow: 
+    0 0 60px var(--neon-yellow),
+    0 15px 50px rgba(0, 0, 0, 0.8);
+}
+
+.fab:active {
+  transform: scale(1.1) rotate(90deg);
+}
+
+@media (max-width: 768px) {
+  .controls-section {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  
+  .section-title {
+    font-size: 16px;
+  }
+  
+  .fab {
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
+    bottom: 30px;
+    right: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .control-title {
+    font-size: 12px;
+  }
+  
+  .section-title {
+    font-size: 14px;
+  }
+  
+  .fab {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    bottom: 20px;
+    right: 20px;
+  }
+}

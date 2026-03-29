@@ -1,0 +1,148 @@
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Task, TaskPriority } from '../types/task';
+import { loadTasks, updateTask } from '../utils/taskUtils';
+import './AddTaskPage.css';
+
+function EditTaskPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const task = location.state?.task as Task;
+
+  const [formData, setFormData] = useState({
+    title: task?.title || '',
+    description: task?.description || '',
+    dueDate: task?.dueDate || '',
+    priority: task?.priority || 'Medium' as TaskPriority,
+  });
+  const [errors, setErrors] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!task) {
+      navigate('/tasks');
+    }
+  }, [task, navigate]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const validationErrors: string[] = [];
+    if (!formData.title.trim()) validationErrors.push('Title is required');
+    if (!formData.description.trim()) validationErrors.push('Description is required');
+    if (!formData.dueDate) validationErrors.push('Due date is required');
+    
+    if (validationErrors.length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    const tasks = loadTasks();
+    const updatedTask: Task = {
+      ...task,
+      title: formData.title,
+      description: formData.description,
+      dueDate: formData.dueDate,
+      priority: formData.priority,
+    };
+    
+    const taskIndex = tasks.findIndex(t => t.id === task.id);
+    if (taskIndex !== -1) {
+      tasks[taskIndex] = updatedTask;
+      updateTask(tasks, updatedTask);
+    }
+    
+    navigate('/tasks');
+  };
+
+  if (!task) return null;
+
+  return (
+    <div className="page-container">
+      <div className="page-header-large">
+        <h1 className="page-title-large">
+          <span className="icon-emoji">✏️</span>
+          EDIT TASK
+          <span className="icon-emoji">💾</span>
+        </h1>
+        <p className="page-subtitle-large">🔧 Update your task details and save changes 📝</p>
+      </div>
+
+      <div className="form-card-large">
+        <form onSubmit={handleSubmit} className="task-form-page">
+          {errors.length > 0 && (
+            <div className="error-box">
+              {errors.map((error, i) => (
+                <p key={i} className="form-error">⚠ {error}</p>
+              ))}
+            </div>
+          )}
+
+          <div className="form-field">
+            <label htmlFor="title">📌 TITLE *</label>
+            <input
+              id="title"
+              type="text"
+              className="text-input"
+              placeholder="Enter task title"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="description">📄 DESCRIPTION *</label>
+            <textarea
+              id="description"
+              className="text-input textarea"
+              placeholder="Enter task description"
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+            />
+          </div>
+
+          <div className="form-grid-two">
+            <div className="form-field">
+              <label htmlFor="dueDate">📅 DUE DATE *</label>
+              <input
+                id="dueDate"
+                type="date"
+                className="text-input"
+                value={formData.dueDate}
+                onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
+              />
+            </div>
+
+            <div className="form-field">
+              <label htmlFor="priority">⭐ PRIORITY *</label>
+              <select
+                id="priority"
+                className="text-input"
+                value={formData.priority}
+                onChange={(e) => setFormData({ ...formData, priority: e.target.value as TaskPriority })}
+              >
+                <option value="High">🔥 High</option>
+                <option value="Medium">⚡ Medium</option>
+                <option value="Low">💚 Low</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="form-actions-page">
+            <button type="submit" className="btn primary large">
+              💾 SAVE CHANGES
+            </button>
+            <button 
+              type="button" 
+              className="btn ghost large"
+              onClick={() => navigate('/tasks')}
+            >
+              ❌ CANCEL
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default EditTaskPage;

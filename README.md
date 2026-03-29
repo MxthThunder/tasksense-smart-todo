@@ -97,7 +97,7 @@ tasksense-smart-todo/
 
 ```typescript
 export interface Task {
-  id: string;
+  id: number;
   title: string;
   description: string;
   dueDate: string;       // ISO date string
@@ -113,13 +113,13 @@ export interface Task {
 
 | Function | Module | Description |
 |---|---|---|
-| `createTask()` | taskUtils.ts | Creates a new Task object with generated ID |
+| `createTask(title, description, dueDate, priority)` | taskUtils.ts | Creates a new Task object with `id: Date.now()` |
 | `loadTasks()` | storage.ts | Reads tasks array from localStorage |
 | `saveTasks()` | storage.ts | Writes tasks array to localStorage |
 | `addTask()` | taskUtils.ts | Adds task to array and persists |
 | `updateTask()` | taskUtils.ts | Updates task fields by ID |
 | `deleteTask()` | taskUtils.ts | Removes task by ID |
-| `completeTask()` | taskUtils.ts | Toggles `completed` flag |
+| `completeTask()` | taskUtils.ts | Updates task completion status to true |
 | `getTaskStatus()` | reminder.ts | Returns status string for a task |
 | `filterTasks()` | taskUtils.ts | Filters task array by status |
 | `searchTasks()` | taskUtils.ts | Searches tasks by title substring |
@@ -139,16 +139,10 @@ export interface Task {
 git clone https://github.com/MxthThunder/tasksense-smart-todo.git
 cd tasksense-smart-todo
 
-# 2. Scaffold a Vite + React + TypeScript project into this folder
-npm create vite@latest . -- --template react-ts
-
-# 3. Install dependencies
+# 2. Install dependencies
 npm install
 
-# 4. Replace the generated src/ folder with the project source files
-# (follow the folder structure above)
-
-# 5. Start the dev server
+# 3. Start the dev server
 npm run dev
 ```
 

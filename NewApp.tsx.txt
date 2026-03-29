@@ -1,0 +1,24 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Header from './components/Header';
+import AddTaskPage from './pages/AddTaskPage';
+import TasksPage from './pages/TasksPage';
+import EditTaskPage from './pages/EditTaskPage';
+import './App.css';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <div className="app-shell">
+        <Header />
+        <Routes>
+          <Route path="/" element={<AddTaskPage />} />
+          <Route path="/tasks" element={<TasksPage />} />
+          <Route path="/edit" element={<EditTaskPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
+}
+
+export default App;

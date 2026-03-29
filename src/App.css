@@ -1,0 +1,1677 @@
+/* ======================================
+   GAME LAYOUT - SIDEBAR + CONTENT
+   ====================================== */
+
+.game-layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ======================================
+   NAVIGATION SIDEBAR
+   ====================================== */
+
+.game-nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: var(--menu-width);
+  height: 100vh;
+  background: var(--bg-menu);
+  border-right: 4px solid var(--neon-cyan);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  box-shadow: 
+    0 0 30px rgba(102, 252, 241, 0.3),
+    inset -10px 0 30px rgba(102, 252, 241, 0.05);
+  animation: slideIn 0.4s ease;
+}
+
+.nav-header {
+  padding: var(--space-xl) var(--space-lg);
+  border-bottom: 3px solid var(--neon-cyan);
+  background: linear-gradient(180deg, rgba(102, 252, 241, 0.1) 0%, transparent 100%);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.logo-icon {
+  font-size: 48px;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px var(--neon-cyan));
+}
+
+.logo-text h1 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 16px;
+  color: var(--neon-cyan);
+  margin: 0;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+}
+
+.logo-subtitle {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--neon-pink);
+  letter-spacing: 0.15em;
+  display: block;
+  margin-top: 6px;
+  text-shadow: 0 0 10px var(--neon-pink);
+}
+
+.nav-stats {
+  padding: var(--space-lg);
+  border-bottom: 2px solid rgba(102, 252, 241, 0.3);
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.stat-icon {
+  font-size: 24px;
+  animation: neonPulse 2s infinite;
+}
+
+.stat-label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--text-gold);
+  letter-spacing: 0.1em;
+}
+
+.stat-bar {
+  height: 12px;
+  background: var(--bg-dark);
+  border: 2px solid var(--neon-green);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 75%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--neon-cyan) 100%);
+  animation: glow 2s infinite;
+}
+
+.nav-menu {
+  flex: 1;
+  list-style: none;
+  padding: var(--space-lg) 0;
+  overflow-y: auto;
+}
+
+.nav-menu li {
+  margin-bottom: var(--space-xs);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  border: none;
+  border-left: 4px solid transparent;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.nav-link:hover {
+  background: rgba(102, 252, 241, 0.1);
+  color: var(--neon-cyan);
+  border-left-color: var(--neon-cyan);
+}
+
+.nav-link.active {
+  background: linear-gradient(90deg, rgba(102, 252, 241, 0.2) 0%, transparent 100%);
+  color: var(--neon-cyan);
+  border-left-color: var(--neon-cyan);
+}
+
+.nav-link.active .nav-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nav-icon {
+  font-size: 28px;
+  filter: drop-shadow(0 0 8px currentColor);
+  transition: transform 0.2s ease;
+}
+
+.nav-link:hover .nav-icon {
+  transform: scale(1.2);
+}
+
+.nav-text {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  flex: 1;
+  text-align: left;
+}
+
+.nav-arrow {
+  font-size: 12px;
+  color: var(--neon-pink);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover .nav-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nav-footer {
+  padding: var(--space-lg);
+  border-top: 2px solid rgba(102, 252, 241, 0.3);
+  text-align: center;
+}
+
+.power-ups {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.power-up {
+  font-size: 28px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.power-up:hover {
+  transform: scale(1.3) rotate(10deg);
+  filter: drop-shadow(0 0 15px var(--neon-yellow));
+}
+
+.nav-version {
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+/* ======================================
+   MAIN CONTENT AREA
+   ====================================== */
+
+.game-content {
+  flex: 1;
+  margin-left: var(--menu-width);
+  padding: var(--space-xl);
+  min-height: 100vh;
+}
+
+.page {
+  animation: fadeIn 0.4s ease;
+}
+
+/* ======================================
+   HOME PAGE
+   ====================================== */
+
+.hero-section {
+  text-align: center;
+  padding: var(--space-2xl);
+  border: 4px solid var(--neon-cyan);
+  background: var(--bg-dark);
+  margin-bottom: var(--space-xl);
+  box-shadow: 0 0 30px rgba(102, 252, 241, 0.2), inset 0 0 50px rgba(102, 252, 241, 0.05);
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--neon-pink);
+  color: var(--bg-space);
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  margin-bottom: var(--space-lg);
+  animation: neonPulse 2s infinite;
+}
+
+.hero-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 48px;
+  color: var(--text-gold);
+  margin: 0 0 var(--space-md);
+  text-shadow: 3px 3px 0 var(--neon-orange), 0 0 30px var(--text-gold);
+  letter-spacing: 0.15em;
+  animation: neonPulse 3s infinite;
+}
+
+.hero-subtitle {
+  font-size: 22px;
+  color: var(--neon-cyan);
+  margin: 0 0 var(--space-xl);
+  text-shadow: 0 0 15px var(--neon-cyan);
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.stat-card {
+  padding: var(--space-lg);
+  border: 3px solid;
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px) scale(1.05);
+}
+
+.stat-card.cyan { border-color: var(--neon-cyan); box-shadow: 0 0 20px var(--neon-cyan); }
+.stat-card.green { border-color: var(--neon-green); box-shadow: 0 0 20px var(--neon-green); }
+.stat-card.yellow { border-color: var(--neon-yellow); box-shadow: 0 0 20px var(--neon-yellow); }
+.stat-card.pink { border-color: var(--neon-pink); box-shadow: 0 0 20px var(--neon-pink); }
+
+.stat-emoji {
+  font-size: 40px;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+.stat-value {
+  font-family: "Press Start 2P", monospace;
+  font-size: 32px;
+  color: var(--text-primary);
+}
+
+.stat-name {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.action-card {
+  padding: var(--space-xl);
+  border: 3px solid var(--neon-cyan);
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.action-card:hover {
+  border-color: var(--neon-pink);
+  background: rgba(255, 42, 109, 0.1);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 0 30px var(--neon-pink);
+}
+
+.action-icon {
+  font-size: 56px;
+  display: block;
+  margin-bottom: var(--space-md);
+  filter: drop-shadow(0 0 15px var(--neon-cyan));
+  transition: transform 0.3s ease;
+}
+
+.action-card:hover .action-icon {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.action-card h3 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  color: var(--neon-cyan);
+  margin: 0 0 var(--space-sm);
+  text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.action-card p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin: 0;
+}
+
+.quick-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+}
+
+.info-card {
+  padding: var(--space-xl);
+  border: 3px solid var(--neon-purple);
+  background: var(--bg-card);
+  text-align: center;
+  box-shadow: 0 0 20px rgba(189, 0, 255, 0.2);
+}
+
+.info-card h4 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: var(--neon-purple);
+  margin: 0 0 var(--space-md);
+  text-shadow: 0 0 10px var(--neon-purple);
+}
+
+.info-value {
+  color: var(--text-primary);
+  font-size: 18px;
+  margin: var(--space-sm) 0 0;
+}
+
+.power-bar {
+  height: 20px;
+  background: var(--bg-dark);
+  border: 3px solid var(--neon-green);
+  position: relative;
+  overflow: hidden;
+}
+
+.power-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan), var(--neon-blue));
+  transition: width 0.5s ease;
+  animation: glow 2s infinite;
+}
+
+/* ======================================
+   PAGE HEADERS
+   ====================================== */
+
+.page-header {
+  text-align: center;
+  padding: var(--space-xl);
+  border: 4px solid var(--neon-cyan);
+  background: var(--bg-dark);
+  margin-bottom: var(--space-xl);
+  box-shadow: 0 0 25px rgba(102, 252, 241, 0.2);
+}
+
+.page-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 32px;
+  color: var(--text-gold);
+  margin: 0;
+  text-shadow: 2px 2px 0 var(--neon-orange), 0 0 20px var(--text-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.page-title span {
+  font-size: 40px;
+  filter: drop-shadow(0 0 15px var(--neon-cyan));
+  animation: float 2s ease-in-out infinite;
+}
+
+.page-subtitle {
+  font-size: 18px;
+  color: var(--neon-cyan);
+  margin: var(--space-md) 0 0;
+  text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+/* ======================================
+   FORM WRAPPER
+   ====================================== */
+
+.form-wrapper {
+  border: 3px solid var(--neon-pink);
+  background: var(--bg-card);
+  padding: var(--space-xl);
+  box-shadow: 0 0 25px rgba(255, 42, 109, 0.2);
+}
+
+/* ======================================
+   CONTROLS SECTION
+   ====================================== */
+
+.controls-section {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.control-box {
+  border: 3px solid var(--neon-cyan);
+  background: var(--bg-card);
+  padding: var(--space-lg);
+  box-shadow: 0 0 15px rgba(102, 252, 241, 0.15);
+}
+
+.control-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: var(--text-gold);
+  margin: 0 0 var(--space-md);
+  text-shadow: 0 0 10px var(--text-gold);
+  text-align: center;
+}
+
+.section-header {
+  text-align: center;
+  padding: var(--space-md);
+  border: 3px solid var(--neon-pink);
+  background: var(--bg-card);
+  margin-bottom: var(--space-lg);
+  box-shadow: 0 0 15px rgba(255, 42, 109, 0.2);
+}
+
+.section-header h2 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 16px;
+  color: var(--neon-pink);
+  margin: 0;
+  text-shadow: 0 0 10px var(--neon-pink);
+}
+
+/* ======================================
+   INVENTORY PAGE
+   ====================================== */
+
+.priority-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+}
+
+.priority-column {
+  border: 3px solid;
+  background: var(--bg-card);
+  padding: var(--space-lg);
+  min-height: 400px;
+}
+
+.priority-column.high { 
+  border-color: var(--neon-pink); 
+  box-shadow: 0 0 20px rgba(255, 42, 109, 0.2);
+}
+.priority-column.medium { 
+  border-color: var(--neon-yellow); 
+  box-shadow: 0 0 20px rgba(255, 230, 109, 0.2);
+}
+.priority-column.low { 
+  border-color: var(--neon-green); 
+  box-shadow: 0 0 20px rgba(5, 255, 161, 0.2);
+}
+
+.priority-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-md);
+  border-bottom: 2px solid currentColor;
+  margin-bottom: var(--space-md);
+}
+
+.priority-icon {
+  font-size: 32px;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+.priority-header h3 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  margin: 0;
+  flex: 1;
+}
+
+.priority-column.high .priority-header h3 { color: var(--neon-pink); }
+.priority-column.medium .priority-header h3 { color: var(--neon-yellow); }
+.priority-column.low .priority-header h3 { color: var(--neon-green); }
+
+.priority-count {
+  font-family: "Press Start 2P", monospace;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.priority-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.priority-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-dark);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.priority-item:hover {
+  transform: translateX(5px);
+  border-color: var(--neon-cyan);
+}
+
+.item-icon {
+  font-size: 24px;
+}
+
+.item-info h4 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs);
+}
+
+.item-info p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.empty-priority {
+  color: var(--text-muted);
+  text-align: center;
+  padding: var(--space-xl);
+  font-style: italic;
+}
+
+/* ======================================
+   ACHIEVEMENTS PAGE
+   ====================================== */
+
+.achievements-progress {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.progress-circle {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  border: 5px solid var(--neon-cyan);
+  border-radius: 50%;
+  background: var(--bg-card);
+  box-shadow: 0 0 30px var(--neon-cyan), inset 0 0 20px rgba(102, 252, 241, 0.1);
+}
+
+.progress-value {
+  font-family: "Press Start 2P", monospace;
+  font-size: 24px;
+  color: var(--text-gold);
+}
+
+.progress-label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-top: var(--space-xs);
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+}
+
+.achievement-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  border: 3px solid;
+  background: var(--bg-card);
+  transition: all 0.3s ease;
+}
+
+.achievement-card.unlocked {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 20px rgba(5, 255, 161, 0.3);
+}
+
+.achievement-card.locked {
+  border-color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.achievement-card:hover {
+  transform: translateY(-3px);
+}
+
+.achievement-icon {
+  font-size: 48px;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+.achievement-card.locked .achievement-icon {
+  filter: grayscale(1);
+}
+
+.achievement-info {
+  flex: 1;
+}
+
+.achievement-info h3 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs);
+}
+
+.achievement-info p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.achievement-status {
+  font-size: 28px;
+}
+
+/* ======================================
+   FORM STYLES (EXISTING)
+   ====================================== */
+
+.card {
+  background: var(--bg-card);
+  border: 3px solid var(--neon-cyan);
+  padding: var(--space-xl);
+  box-shadow: 0 0 20px rgba(102, 252, 241, 0.15);
+  margin-bottom: var(--space-lg);
+}
+
+.card h2 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 16px;
+  color: var(--text-gold);
+  margin: 0 0 var(--space-lg);
+  text-align: center;
+  text-shadow: 0 0 10px var(--text-gold);
+}
+
+.task-form {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.form-field label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 8px var(--neon-cyan);
+}
+
+.text-input {
+  height: 48px;
+  border: 3px solid var(--neon-cyan);
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  padding: var(--space-sm) var(--space-md);
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.text-input:focus {
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 15px var(--neon-pink), inset 0 0 10px rgba(255, 42, 109, 0.1);
+}
+
+.text-input::placeholder {
+  color: var(--text-muted);
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-error {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--neon-pink);
+  text-shadow: 0 0 8px var(--neon-pink);
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  padding-top: var(--space-md);
+}
+
+/* ======================================
+   BUTTON STYLES
+   ====================================== */
+
+.btn {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  padding: var(--space-md) var(--space-xl);
+  border: 3px solid;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.btn.primary {
+  background: var(--neon-yellow);
+  border-color: var(--neon-yellow);
+  color: var(--bg-space);
+  box-shadow: 0 0 15px var(--neon-yellow);
+}
+
+.btn.primary:hover {
+  background: var(--bg-space);
+  color: var(--neon-yellow);
+  transform: scale(1.05);
+}
+
+.btn.ghost {
+  background: transparent;
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.btn.ghost:hover {
+  background: var(--neon-cyan);
+  color: var(--bg-space);
+}
+
+.btn.small {
+  font-size: 10px;
+  padding: var(--space-sm) var(--space-md);
+}
+
+.btn.success {
+  background: transparent;
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: 0 0 10px var(--neon-green);
+}
+
+.btn.success:hover {
+  background: var(--neon-green);
+  color: var(--bg-space);
+}
+
+.btn.danger {
+  background: transparent;
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+  box-shadow: 0 0 10px var(--neon-pink);
+}
+
+.btn.danger:hover {
+  background: var(--neon-pink);
+  color: var(--bg-space);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ======================================
+   TASK LIST & CARDS
+   ====================================== */
+
+.task-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-lg);
+}
+
+.task-card {
+  background: var(--bg-card);
+  border: 3px solid var(--neon-cyan);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(102, 252, 241, 0.15);
+}
+
+.task-card:hover {
+  border-color: var(--neon-pink);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 0 25px var(--neon-pink);
+}
+
+.task-card.overdue {
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 20px rgba(255, 42, 109, 0.3);
+  animation: glow 2s infinite;
+}
+
+.task-card.due-today {
+  border-color: var(--neon-yellow);
+  box-shadow: 0 0 20px rgba(255, 230, 109, 0.3);
+}
+
+.task-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.task-top-row h3 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.task-top-row h3.completed-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.task-description {
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.task-description.completed-text {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.task-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-sm);
+  border-top: 2px solid rgba(102, 252, 241, 0.2);
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.task-actions {
+  display: flex;
+  gap: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 2px solid rgba(102, 252, 241, 0.2);
+}
+
+/* Priority & Status Badges */
+.priority-badge, .status-chip {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  padding: var(--space-xs) var(--space-sm);
+  border: 2px solid;
+  text-transform: uppercase;
+}
+
+.priority-high { border-color: var(--neon-pink); color: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink); }
+.priority-medium { border-color: var(--neon-yellow); color: var(--neon-yellow); box-shadow: 0 0 10px var(--neon-yellow); }
+.priority-low { border-color: var(--neon-green); color: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); }
+
+.status-completed { border-color: var(--neon-green); color: var(--neon-green); }
+.status-overdue { border-color: var(--neon-pink); color: var(--neon-pink); animation: neonPulse 2s infinite; }
+.status-today { border-color: var(--neon-yellow); color: var(--neon-yellow); }
+.status-upcoming { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+
+/* Filter Buttons */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.filter-btn {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  padding: var(--space-sm) var(--space-md);
+  border: 3px solid var(--neon-cyan);
+  background: transparent;
+  color: var(--neon-cyan);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background: rgba(102, 252, 241, 0.1);
+}
+
+.filter-btn.active {
+  background: var(--neon-pink);
+  border-color: var(--neon-pink);
+  color: var(--bg-space);
+  box-shadow: 0 0 15px var(--neon-pink);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: var(--space-2xl);
+  border: 3px dashed var(--neon-cyan);
+}
+
+.empty-state h3 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 16px;
+  color: var(--text-gold);
+  margin: 0 0 var(--space-md);
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+}
+
+/* ======================================
+   RESPONSIVE
+   ====================================== */
+
+@media (max-width: 1200px) {
+  .hero-stats, .action-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .priority-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .achievements-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .game-nav {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 4px solid var(--neon-cyan);
+  }
+  
+  .game-content {
+    margin-left: 0;
+  }
+  
+  .nav-menu {
+    display: flex;
+    flex-wrap: wrap;
+    padding: var(--space-sm);
+    gap: var(--space-xs);
+  }
+  
+  .nav-menu li {
+    margin: 0;
+  }
+  
+  .nav-link {
+    padding: var(--space-sm) var(--space-md);
+    border-left: none;
+  }
+  
+  .nav-text {
+    font-size: 8px;
+  }
+  
+  .nav-arrow, .nav-stats, .nav-footer {
+    display: none;
+  }
+  
+  .controls-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .quick-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 28px;
+  }
+  
+  .page-title {
+    font-size: 20px;
+    flex-direction: column;
+  }
+  
+  .task-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .btn {
+    font-size: 10px;
+    padding: var(--space-sm) var(--space-md);
+  }
+}
+
+/* ======================================
+   AI INSIGHTS PAGE STYLES
+   ====================================== */
+
+.ai-insights-page {
+  animation: fadeIn 0.5s ease;
+}
+
+/* AI Navigation Button */
+.nav-link.ai-nav {
+  background: linear-gradient(90deg, rgba(102, 252, 241, 0.1), rgba(255, 42, 109, 0.1));
+  border-left: 4px solid var(--neon-purple);
+}
+
+.nav-link.ai-nav:hover,
+.nav-link.ai-nav.active {
+  background: linear-gradient(90deg, rgba(102, 252, 241, 0.2), rgba(255, 42, 109, 0.2));
+  border-color: var(--neon-cyan);
+}
+
+/* AI Action Card */
+.action-card.ai-card {
+  background: linear-gradient(135deg, var(--bg-card), rgba(102, 252, 241, 0.1));
+  border-color: var(--neon-purple);
+  animation: neonPulse 3s infinite;
+}
+
+.action-card.ai-card:hover {
+  background: linear-gradient(135deg, rgba(102, 252, 241, 0.2), rgba(255, 42, 109, 0.2));
+  box-shadow: 0 0 40px var(--neon-cyan), 0 0 60px var(--neon-pink);
+}
+
+/* AI Dashboard Stats */
+.ai-dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.ai-stat-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+  background: var(--bg-card);
+  border: 3px solid;
+  transition: all 0.3s ease;
+}
+
+.ai-stat-card.glow-cyan {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 20px rgba(102, 252, 241, 0.3);
+}
+
+.ai-stat-card.glow-pink {
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 20px rgba(255, 42, 109, 0.3);
+}
+
+.ai-stat-card.glow-green {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 20px rgba(5, 255, 161, 0.3);
+}
+
+.ai-stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.ai-stat-icon {
+  font-size: 48px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.ai-stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.ai-stat-value {
+  font-family: "Press Start 2P", monospace;
+  font-size: 28px;
+  color: var(--text-gold);
+  text-shadow: 0 0 10px var(--text-gold);
+}
+
+.ai-stat-value.ai-tip {
+  font-size: 14px;
+  color: var(--text-primary);
+  text-shadow: none;
+  line-height: 1.6;
+}
+
+.ai-stat-label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--neon-cyan);
+  letter-spacing: 0.1em;
+}
+
+/* AI Focus Card */
+.ai-focus-card {
+  border: 4px solid var(--neon-yellow);
+  background: linear-gradient(135deg, var(--bg-card), rgba(255, 230, 109, 0.1));
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  box-shadow: 0 0 30px rgba(255, 230, 109, 0.3);
+  animation: glow 3s infinite;
+}
+
+.focus-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.focus-badge {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--neon-yellow);
+  color: var(--bg-space);
+  animation: neonPulse 2s infinite;
+}
+
+.focus-header h3 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  color: var(--text-gold);
+  margin: 0;
+  text-shadow: 0 0 10px var(--text-gold);
+}
+
+.focus-content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+}
+
+.focus-icon {
+  font-size: 56px;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px var(--neon-yellow));
+}
+
+.focus-details {
+  flex: 1;
+}
+
+.focus-details h4 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm);
+  line-height: 1.5;
+}
+
+.focus-details p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0 0 var(--space-md);
+}
+
+.focus-meta {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.meta-item {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.meta-item.priority-high { color: var(--neon-pink); }
+.meta-item.priority-medium { color: var(--neon-yellow); }
+.meta-item.priority-low { color: var(--neon-green); }
+
+/* AI Section */
+.ai-section {
+  margin-bottom: var(--space-xl);
+}
+
+.ai-section-header {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  padding: var(--space-lg);
+  border: 3px solid var(--neon-cyan);
+  background: var(--bg-card);
+}
+
+.ai-section-header h2 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 18px;
+  color: var(--text-gold);
+  margin: 0 0 var(--space-sm);
+  text-shadow: 0 0 10px var(--text-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.ai-section-header h2 span {
+  font-size: 24px;
+  animation: neonPulse 2s infinite;
+}
+
+.ai-section-header p {
+  color: var(--neon-cyan);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Priority Queue */
+.priority-queue {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.ai-task-card {
+  display: flex;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+  background: var(--bg-card);
+  border: 3px solid;
+  transition: all 0.3s ease;
+}
+
+.ai-task-card.urgency-critical {
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 25px rgba(255, 42, 109, 0.4);
+  animation: glow 2s infinite;
+}
+
+.ai-task-card.urgency-high {
+  border-color: var(--neon-yellow);
+  box-shadow: 0 0 20px rgba(255, 230, 109, 0.3);
+}
+
+.ai-task-card.urgency-medium {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 15px rgba(102, 252, 241, 0.2);
+}
+
+.ai-task-card.urgency-low {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px rgba(5, 255, 161, 0.2);
+}
+
+.ai-task-card:hover {
+  transform: translateX(10px);
+}
+
+.ai-task-rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rank-badge {
+  font-family: "Press Start 2P", monospace;
+  font-size: 20px;
+  color: var(--text-gold);
+  text-shadow: 0 0 15px var(--text-gold);
+  width: 60px;
+  text-align: center;
+}
+
+.ai-task-main {
+  flex: 1;
+}
+
+.ai-task-main h4 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm);
+  line-height: 1.5;
+}
+
+.ai-task-desc {
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0 0 var(--space-lg);
+}
+
+/* AI Analysis Grid */
+.ai-analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 2px solid rgba(102, 252, 241, 0.2);
+}
+
+.analysis-item {
+  padding: var(--space-md);
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(102, 252, 241, 0.3);
+}
+
+.analysis-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.analysis-label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--neon-cyan);
+  display: block;
+  margin-bottom: var(--space-sm);
+  text-shadow: 0 0 8px var(--neon-cyan);
+}
+
+.analysis-value {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.ai-badge {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  padding: var(--space-xs) var(--space-sm);
+  border: 2px solid;
+}
+
+.ai-badge.priority-high {
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+  background: rgba(255, 42, 109, 0.2);
+}
+
+.ai-badge.priority-medium {
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
+  background: rgba(255, 230, 109, 0.2);
+}
+
+.ai-badge.priority-low {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  background: rgba(5, 255, 161, 0.2);
+}
+
+.ai-badge.category {
+  border-color: var(--neon-purple);
+  color: var(--neon-purple);
+  background: rgba(139, 92, 246, 0.2);
+}
+
+.confidence {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.analysis-reason,
+.analysis-related {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Urgency Meter */
+.urgency-meter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.urgency-bar {
+  flex: 1;
+  height: 20px;
+  background: var(--bg-dark);
+  border: 3px solid var(--neon-cyan);
+  position: relative;
+  overflow: hidden;
+}
+
+.urgency-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.urgency-fill.critical {
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-orange));
+  animation: glow 1s infinite;
+}
+
+.urgency-fill.high {
+  background: linear-gradient(90deg, var(--neon-yellow), var(--neon-orange));
+}
+
+.urgency-fill.medium {
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue));
+}
+
+.urgency-fill.low {
+  background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan));
+}
+
+.urgency-score {
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  color: var(--text-gold);
+  text-shadow: 0 0 10px var(--text-gold);
+  min-width: 70px;
+  text-align: right;
+}
+
+.urgency-recommendation {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm);
+}
+
+.days-badge {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  padding: var(--space-xs) var(--space-sm);
+  border: 2px solid var(--neon-yellow);
+  color: var(--neon-yellow);
+  display: inline-block;
+}
+
+/* Empty AI State */
+.empty-ai-state {
+  text-align: center;
+  padding: var(--space-2xl);
+  border: 3px dashed var(--neon-cyan);
+}
+
+.empty-ai-state .empty-icon {
+  font-size: 64px;
+  display: block;
+  margin-bottom: var(--space-md);
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-ai-state p {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+/* AI Concepts Section */
+.ai-concepts-section {
+  border: 4px solid var(--neon-purple);
+  background: linear-gradient(135deg, var(--bg-card), rgba(139, 92, 246, 0.1));
+  padding: var(--space-xl);
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.3);
+}
+
+.ai-concepts-section h3 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 16px;
+  color: var(--text-gold);
+  margin: 0 0 var(--space-lg);
+  text-align: center;
+  text-shadow: 0 0 10px var(--text-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.ai-concepts-section h3 span {
+  font-size: 24px;
+  animation: float 2s ease-in-out infinite;
+}
+
+.concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+.concept-card {
+  padding: var(--space-lg);
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid var(--neon-cyan);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.concept-card:hover {
+  border-color: var(--neon-pink);
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px var(--neon-pink);
+}
+
+.concept-icon {
+  font-size: 36px;
+  display: block;
+  margin-bottom: var(--space-sm);
+  animation: float 3s ease-in-out infinite;
+}
+
+.concept-card h4 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--neon-cyan);
+  margin: 0 0 var(--space-sm);
+  text-shadow: 0 0 8px var(--neon-cyan);
+}
+
+.concept-card p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Responsive AI Styles */
+@media (max-width: 1200px) {
+  .ai-dashboard {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .ai-dashboard .ai-stat-card:last-child {
+    grid-column: 1 / -1;
+  }
+  
+  .concepts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .ai-dashboard {
+    grid-template-columns: 1fr;
+  }
+  
+  .ai-analysis-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .focus-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .focus-meta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .ai-task-card {
+    flex-direction: column;
+  }
+  
+  .rank-badge {
+    font-size: 16px;
+  }
+  
+  .concepts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
